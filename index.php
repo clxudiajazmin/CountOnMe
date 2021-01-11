@@ -50,6 +50,31 @@
             <a href='editarPerfil.php'> Editar Perfil</a>
             
         </div>
+        <div>  
+        <!--Parte de eventos--> 
+            <?php
+            $eventos = $connect->query("SELECT * FROM eventos ORDER BY usuario_org");
+            while($row1 = $eventos->fetch_assoc()){
+                $usuario_org = $row1['usuario_org'];
+                $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '$usuario_org'");
+                $row2 = $solicitar->fetch_assoc();
+                echo "Evento creado por:";
+                echo $row2['usuario']."<br>";
+                echo "Nombre del evento:";
+                echo $row1['nombre']."<br>";
+                echo "Fecha:";
+                echo $row1['fecha']."<br>";
+                echo "Aforo:";
+                echo $row1['aforo']."<br>";
+                echo "Descripción:";
+                echo $row1['descripcion']."<br>";
+                echo "Categoría:";
+                echo $row1['categoria']."<br>";
+                echo "Ubicación:";
+                echo $row1['ubicacion']."<br>";
+            }
+            ?>
+        </div>
     <?php }else{
             echo "<a href='login.php'> Debes loguearte </a> o <a href='registro.php'> Registrarte </a>";
         }

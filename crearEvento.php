@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,53 +9,44 @@
     <title>Crear Evento</title>
 </head>
 <body>
+    <?php
+        if(isset($_SESSION['usuario'])){
+            require ("config.php");
+            $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '".$_SESSION['id']."'");
+            $row = $solicitar->fetch_assoc();
+        }
+    ?>
     <form action="" method="post">
-        <input type="text" placeholder="Nombre Completo" name="nombre" required>
-        <input type="email" placeholder="Email" name="email" required>
-        <input type="text" placeholder="Usuario" name="usuario" required>
-        <input type="password"  placeholder="Contraseña" name="contrasena" required>
-        <input type="password"  placeholder="Repita Contraseña" name="repcontrasena" required>
-        <input type="submit" name="reg" value="Registrar">
+        <input type="text" placeholder="Nombre de Evento" name="nombre" required><br><br>
+        <input type="date" placeholder="Fecha de Evento" name="fecha" required><br><br>
+        <input type="number" placeholder="Aforo de Evento" name="aforo" required><br><br>
+        <textarea rows="10" cols="50" name ="descripcion" placeholder="Describe para que los demás sepan un poco más sobre el evento."></textarea><br><br>
+        <input type="text" placeholder="Categoría de Evento" name="categoria"><br><br>
+        <input type="text" placeholder="Ubicación de Evento" name="ubicacion"><br><br>
+        <input type="submit" name="event" value="Crear Evento">
     </form>
 
     <?php
-        if(isset($_POST['reg'])){
+        if(isset($_POST['event'])){
             require("config.php");
 
             $nombre = $_POST['nombre'];
-            $email = $_POST['email'];
-            $usuario = $_POST['usuario'];
-            $contrasena = md5($_POST['contrasena']);
-            $repcontrasena = md5($_POST['repcontrasena']);
+            $fecha = $_POST['fecha'];
+            $aforo = $_POST['aforo'];
+            $descripcion = $_POST['descripcion'];
+            $categoria = $_POST['categoria'];
+            $ubicacion = $_POST['ubicacion'];
             
 
-            $consulta = $connect->query("SELECT * FROM usuarios WHERE usuario = '$usuario'");
-            $contarusuario = $consulta->num_rows;
-
-            $consulta = $connect->query("SELECT * FROM usuarios WHERE email = '$email'");
-            $contaremail = $consulta->num_rows;
-
-            if($contarusuario == 0 and $contaremail == 0 and $contrasena == $repcontrasena){
-                $insertar = $connect->query("INSERT INTO usuarios (nombre, usuario, contrasena, email, fecha_reg) VALUES ('$nombre','$usuario','$contrasena','$email',now())");
-                if ($insertar) {
-                    echo "Te has registrado correctamente";
-                    header("Refresh: 2; url = login.php");
-                }else{
-                    echo "Error en ingresar datos";
-                }
-            }else{
-                if($contarusuario > 0){
-                    echo "El usuario ya existe<br>.";
-                }
-                if($contaremail >0){
-                    echo "El email ya está en uso.";
-                }
-                if($contrasena != $repcontrasena) {
-                    echo "Las contraseñas no coinciden. Vuelva a intentarlo.<br>";
-                }
-                echo "<a href='login.php'> Inicie Sesión </a><br>";
+            $insertar = $connect->query("INSERT INTO eventos (nombre, fecha, usuario_org, aforo, descripcion, categoria, ubicacion) 
+                                        VALUES ('$nombre','$fecha','".$_SESSION['id']."', '$aforo', '$descripcion', '$categoria', '$ubicacion')");
+            if ($insertar) {
+                echo "Evento creado correctamente.";
+                header("Refresh: 2; url = index.php");
             }
         } 
     ?>
+    <br><br>
+    <a href='index.php'> Regresar </a>    
 </body>
 </html>
