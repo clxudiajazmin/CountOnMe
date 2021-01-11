@@ -15,3 +15,17 @@ ALTER TABLE `usuarios`
 
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+
+CREATE TABLE `eventos` (
+  `nombre` varchar(100) NOT NULL ,
+  `fecha` date NOT NULL ,
+  `id` int(100) NOT NULL ,
+  `usuario_org` int(11) NOT NULL,
+  `aforo` int(10),
+  `descripcion` varchar(100),
+  `categoria` varchar(100),
+  `ubicacion` varchar(100),
+  PRIMARY KEY (`id`),
+  CONSTRAINT `FK_usuario` FOREIGN KEY (`usuario_org`) REFERENCES `usuarios`(`id`)
+  ) ENGINE = InnoDB DEFAULT CHARSET=latin1;
