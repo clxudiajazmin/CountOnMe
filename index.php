@@ -16,7 +16,9 @@
             require ("config.php");
             $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '".$_SESSION['id']."'");
             $row = $solicitar->fetch_assoc();
-            $row['avatar'] = "fotos_perfil/defaul.jpg";
+            if($row['avatar'] == ""){
+                $row['avatar'] = "fotos_perfil/defaul.jpg";
+            }
     ?>
         <div>
             <!--Esta es la barra superior, donde va el logo y el nombre y logout.-->
