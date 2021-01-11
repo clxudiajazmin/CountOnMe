@@ -23,7 +23,7 @@
         <input type="text" placeholder="Usuario" name="usuario" value ="<?php echo $row['usuario'];?>" required><br>
         <input type="text" placeholder="Sexo" name="sexo" value ="<?php echo $row['sexo'];?>" required><br>
         <input type="date" placeholder="Fecha de Nacimiento" name="nacimiento" value="<?php echo $row['nacimiento'];?>" required><br>
-        <textarea rows="10" cols="50" name ="descripcion" placeholder="Describe para que los demás conozcan un poco sobre ti." value="<?php echo $row['descripcion'];?>"></textarea><br>
+        <textarea rows="10" cols="50" name ="descripcion" placeholder="Describe para que los demás conozcan un poco sobre ti."><?php echo $row['descripcion'];?></textarea><br>
         <input type="submit" name="act" value="Actualizar Perfil"><br>
     </form>
     <br>
@@ -47,11 +47,12 @@
             }else{
                 $insertar = $connect->query("UPDATE usuarios SET nombre ='$nombre', email = '$email', usuario = '$usuario', sexo = '$sexo', descripcion = '$descripcion', nacimiento = '$nacimiento' WHERE id = '".$_SESSION['id']."'");
                 echo "Datos actualizados correctamente.";
-                header("Refresh: 2; url = index.php");
+                header("Refresh: 1; url = index.php");
             }
 
         }
     ?>
+    <br>
     <a href='index.php'> Regresar </a>    
 
 </body>
