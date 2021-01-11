@@ -12,7 +12,7 @@
     <title>Login</title>
 </head>
 <body>
-    <!--Bloque de Login-->
+    <!--Bloque de Login Mantener los name-->
     <form action="" method="post">
         <input type="text" placeholder="Usuario" name="usuario" required>
         <input type="password"  placeholder="Contraseña" name="contrasena" required>
