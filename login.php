@@ -22,13 +22,15 @@
         if(isset($_POST['login'])){
             require ("config.php");
             $usuario = $_POST['usuario'];
-            $contrasena = $_POST['contrasena'];
+            $contrasena = md5($_POST['contrasena']);
 
             $validar = $connect->query("SELECT  * FROM usuarios WHERE usuario = '$usuario' AND  contrasena ='$contrasena'");
             $contar = $validar->num_rows;
+            $dato = $validar->fetch_assoc();
 
             if ($contar == 1){
                 $_SESSION['usuario'] = $usuario;
+                $_SESSION['id'] = $dato['id'];
                 header("Location: index.php");
             }
         }
