@@ -22,6 +22,7 @@
             <?php 
                 echo "Bienvenid@,  ". $row['nombre']. "<br>" ;
             ?>
+            <a href='crearEvento.php'> Crear evento </a>
             <a href='logout.php'> Salir </a>
             
         </div>

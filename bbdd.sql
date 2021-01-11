@@ -44,14 +44,13 @@ CREATE TABLE `eventos` (
     PRIMARY KEY (`solicitado`,`solicitante`),
     CONSTRAINT `FK_solicitante` FOREIGN KEY (`solicitante`) REFERENCES `usuarios`(`id`),
     CONSTRAINT `FK_solicitado` FOREIGN KEY (`solicitado`) REFERENCES `usuarios`(`id`)
-
     ) ENGINE = InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `asistencia`(
   `evento` int(100) NOT NULL,
   `usuario` int(11) NOT NULL,
   PRIMARY KEY (`evento` , `usuario`),
-  CONSTRAINT `FK_evento` FOREIGN KEY (`evento`) REFERENCES `eventos` (`id`),
-  CONSTRAINT `FK_usuario`FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`id`)
+  CONSTRAINT `FK_evento_asistencia` FOREIGN KEY (`evento`) REFERENCES `eventos` (`id`),
+  CONSTRAINT `FK_usuario_asistencia`FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`id`)
 
 )ENGINE = InnoDB DEFAULT CHARSET=latin1;
