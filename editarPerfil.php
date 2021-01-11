@@ -30,7 +30,7 @@
     <?php
         if(isset($_POST['act'])){
             $carpeta = "fotos_perfil/";
-            $fichero = $ruta.basename($_FILES['avatar']['name']);
+            $fichero = $carpeta.basename($_FILES['avatar']['name']);
             $ruta = $carpeta."id_".$_SESSION['id']."_fotoperfil.jpg";
             $nombre = $_POST['nombre'];
             $email = $_POST['email'];
@@ -41,6 +41,8 @@
 
             if(move_uploaded_file($_FILES['avatar']['tmp_name'], $carpeta."id_".$_SESSION['id']."_fotoperfil.jpg")){
                 $insertar = $connect->query("UPDATE usuarios SET nombre ='$nombre', avatar = '$ruta', email = '$email', usuario = '$usuario', sexo = '$sexo', descripcion = '$descripcion', nacimiento = '$nacimiento' WHERE id = '".$_SESSION['id']."'");
+                echo "Datos actualizados correctamente.";
+                header("Refresh: 2; url = index.php");
             }
 
         }
