@@ -25,7 +25,7 @@
             $usuario = $_POST['usuario'];
             $contrasena = md5($_POST['contrasena']);
 
-            $validar = $connect->query("SELECT  * FROM usuarios WHERE usuario = '$usuario' AND  contrasena ='$contrasena'");
+            $validar = $connect->query("SELECT * FROM usuarios WHERE usuario = '$usuario' AND  contrasena ='$contrasena'");
             $contar = $validar->num_rows;
             $dato = $validar->fetch_assoc();
 

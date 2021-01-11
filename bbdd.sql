@@ -3,11 +3,12 @@ CREATE TABLE `usuarios` (
   `nombre` varchar(100) NOT NULL,
   `usuario` varchar(100) NOT NULL,
   `contrasena` varchar(100) NOT NULL,
-  `nacimiento` date NOT NULL,
-  `avatar` varchar(200) NOT NULL,
+  `nacimiento` date,
+  `avatar` varchar(200),
   `email` varchar(100) NOT NULL,
-  `sexo` varchar(100) NOT NULL,
-  `fecha_reg` datetime NOT NULL
+  `sexo` varchar(100),
+  `fecha_reg` datetime NOT NULL,
+  `descripcion` varchar(400) 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 ALTER TABLE `usuarios`
@@ -15,6 +16,11 @@ ALTER TABLE `usuarios`
 
 ALTER TABLE `usuarios`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `usuarios` 
+CHANGE `avatar` `avatar` VARCHAR(200) 
+CHARACTER SET latin1 COLLATE latin1_swedish_ci 
+NULL DEFAULT 'fotos_perfil/defaul.jpg'; 
 
 
 CREATE TABLE `eventos` (

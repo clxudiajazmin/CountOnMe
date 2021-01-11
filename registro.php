@@ -17,7 +17,6 @@
 
     <?php
         if(isset($_POST['reg'])){
-
             require("config.php");
 
             $nombre = $_POST['nombre'];
@@ -33,11 +32,13 @@
             $consulta = $connect->query("SELECT * FROM usuarios WHERE email = '$email'");
             $contaremail = $consulta->num_rows;
 
-            if($contarusuario == 0 && $contaremail == 0 && $contrasena == $repcontrasena){
+            if($contarusuario == 0 and $contaremail == 0 and $contrasena == $repcontrasena){
                 $insertar = $connect->query("INSERT INTO usuarios (nombre, usuario, contrasena, email, fecha_reg) VALUES ('$nombre','$usuario','$contrasena','$email',now())");
                 if ($insertar) {
                     echo "Te has registrado correctamente";
                     header("Refresh: 2; url = login.php");
+                }else{
+                    echo "Error en ingresar datos";
                 }
             }else{
                 if($contarusuario > 0){
