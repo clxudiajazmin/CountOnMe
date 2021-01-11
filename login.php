@@ -17,6 +17,7 @@
         <input type="password"  placeholder="Contraseña" name="contrasena" pattern="[A-Za-z_-0-9]{1,20}">
         <input type="submit" name="login" value="Iniciar Sesión">
     </form>
+    <a href='registro.php'> Quiero registrarme </a>
 
     <?php
         if(isset($_POST['login'])){

@@ -16,6 +16,7 @@
             require ("config.php");
             $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '".$_SESSION['id']."'");
             $row = $solicitar->fetch_assoc();
+            $row['avatar'] = "fotos_perfil/defaul.jpg";
     ?>
         <div>
             <!--Esta es la barra superior, donde va el logo y el nombre y logout.-->
@@ -29,7 +30,7 @@
         <div>
             <!--Barra lateral de perfil .-->
             <!--Imagen de perfil.-->
-            <?php echo $row['avatar'];?>
+            <img src = "<?php echo $row['avatar']; ?>" width="100">
             <br>
             <!--Usuario.-->
             <?php echo $row['usuario'];?>

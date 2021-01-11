@@ -37,17 +37,19 @@
                 $insertar = $connect->query("INSERT INTO usuarios (nombre, usuario, contrasena, email, fecha_reg) VALUES ('$nombre','$usuario','$contrasena','$email',now())");
                 if ($insertar) {
                     echo "Te has registrado correctamente";
+                    header("Refresh: 2; url = login.php");
                 }
             }else{
                 if($contarusuario > 0){
-                    echo "El usuario ya existe<br>.<a href='login.php'> Inicie Sesión </a><br>";
+                    echo "El usuario ya existe<br>.";
                 }
                 if($contaremail >0){
-                    echo "El email ya está en uso. <a href='login.php'> Inicie Sesión </a><br>";
+                    echo "El email ya está en uso.";
                 }
                 if($contrasena != $repcontrasena) {
                     echo "Las contraseñas no coinciden. Vuelva a intentarlo.<br>";
                 }
+                echo "<a href='login.php'> Inicie Sesión </a><br>";
             }
         } 
     ?>

@@ -17,15 +17,34 @@
         }
     ?>
     <form action="" method="post" enctype="multipart/form-data">
-        <input type="file" name="avatar">
-        <input type="text" placeholder="Nombre Completo" name="nombre" value ="<?php echo $row['nombre'];?>" required>
-        <input type="email" placeholder="Email" name="email" value ="<?php echo $row['email'];?>" required>
-        <input type="text" placeholder="Usuario" name="usuario" value ="<?php echo $row['usuario'];?>" required>
-        <input type="text" placeholder="Sexo" name="sexo" value ="<?php echo $row['sexo'];?>" required>
-        <textarea rows="10" cols="50" placeholder="Describe para que los demás conozcan un poco sobre ti."></textarea>
-        <input type="submit" name="reg" value="Actualizar Perfil">
+        <input type="file" name="avatar" value ="<?php echo $row['avatar'];?>"><br>
+        <input type="text" placeholder="Nombre Completo" name="nombre" value ="<?php echo $row['nombre'];?>" required><br>
+        <input type="email" placeholder="Email" name="email" value ="<?php echo $row['email'];?>" required><br>
+        <input type="text" placeholder="Usuario" name="usuario" value ="<?php echo $row['usuario'];?>" required><br>
+        <input type="text" placeholder="Sexo" name="sexo" value ="<?php echo $row['sexo'];?>" required><br>
+        <input type="date" placeholder="Fecha de Nacimiento" name="nacimiento" value="<?php echo $row['nacimiento'];?>" required><br>
+        <textarea rows="10" cols="50" name ="descripcion" placeholder="Describe para que los demás conozcan un poco sobre ti." value="<?php echo $row['descripcion'];?>"></textarea><br>
+        <input type="submit" name="act" value="Actualizar Perfil"><br>
     </form>
     <br>
+    <?php
+        if(isset($_POST['act'])){
+            $carpeta = "fotos_perfil/";
+            $fichero = $ruta.basename($_FILES['avatar']['name']);
+            $ruta = $carpeta."id_".$_SESSION['id']."_fotoperfil.jpg";
+            $nombre = $_POST['nombre'];
+            $email = $_POST['email'];
+            $usuario = $_POST['usuario'];
+            $sexo = $_POST['sexo'];
+            $nacimiento = $_POST['nacimiento'];
+            $descripcion = $_POST['descripcion'];
+
+            if(move_uploaded_file($_FILES['avatar']['tmp_name'], $carpeta."id_".$_SESSION['id']."_fotoperfil.jpg")){
+                $insertar = $connect->query("UPDATE usuarios SET nombre ='$nombre', avatar = '$ruta', email = '$email', usuario = '$usuario', sexo = '$sexo', descripcion = '$descripcion', nacimiento = '$nacimiento' WHERE id = '".$_SESSION['id']."'");
+            }
+
+        }
+    ?>
     <a href='index.php'> Regresar </a>    
 
 </body>
