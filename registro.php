@@ -28,10 +28,10 @@
             $repcontrasena = md5($_POST['repcontrasena']);
             
             //Consultar existencia de usuario
-            $consulta = $connect->query("SELECT * FROM usuarios WHERE usuario = '$usuario'");
+            $consulta = $connect->query("SELECT * FROM usuarios WHERE usuario = ' ".$usuario." '");
             $contarusuario = $consulta->num_rows;
             //Consultar existencia de email
-            $consulta = $connect->query("SELECT * FROM usuarios WHERE email = '$email'");
+            $consulta = $connect->query("SELECT * FROM usuarios WHERE email = ' ".$email." '");
             $contaremail = $consulta->num_rows;
             //Si no existe se ingresan los datos en la BD
             if($contarusuario == 0 and $contaremail == 0 and $contrasena == $repcontrasena){
