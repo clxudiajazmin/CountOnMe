@@ -71,8 +71,7 @@
                     echo "Categoría:";
                     echo $row1['categoria']."<br>";
                     echo "Ubicación:";
-                    echo $row1['ubicacion']."<br>";
-                    echo "<a href='editarEvento.php'> Editar </a><br><br>";
+                    echo $row1['ubicacion']."<br><br><br>";
                 }
             ?>
         </div>
