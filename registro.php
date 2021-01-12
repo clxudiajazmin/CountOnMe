@@ -6,6 +6,7 @@
     <title>Registro</title>
 </head>
 <body>
+    <a href='login.php'> Atrás </a><br><br>
     <!--Bloque de Registro-->
     <form action="" method="post">
         <input type="text" placeholder="Nombre Completo" name="nombre" required>
@@ -15,6 +16,9 @@
         <input type="password"  placeholder="Repita Contraseña" name="repcontrasena" required>
         <input type="submit" name="reg" value="Registrar">
     </form>
+    <br><br>
+    
+
 
     <?php
         if(isset($_POST['reg'])){
@@ -28,10 +32,10 @@
             $repcontrasena = md5($_POST['repcontrasena']);
             
             //Consultar existencia de usuario
-            $consulta = $connect->query("SELECT * FROM usuarios WHERE usuario = ' ".$usuario." '");
+            $consulta = $connect->query("SELECT * FROM usuarios WHERE usuario = '$usuario'");
             $contarusuario = $consulta->num_rows;
             //Consultar existencia de email
-            $consulta = $connect->query("SELECT * FROM usuarios WHERE email = ' ".$email." '");
+            $consulta = $connect->query("SELECT * FROM usuarios WHERE email = '$email'");
             $contaremail = $consulta->num_rows;
             //Si no existe se ingresan los datos en la BD
             if($contarusuario == 0 and $contaremail == 0 and $contrasena == $repcontrasena){
@@ -39,9 +43,6 @@
                 $insertar = $connect->query("INSERT INTO usuarios (nombre, usuario, contrasena, email, fecha_reg) VALUES ('$nombre','$usuario','$contrasena','$email',now())");
                 //Inserción correcta
                 if ($insertar) {
-                ?>
-                <!--Acá podría ir el HTML diciendo lo de te has registrado con Bootstrap y borrar el echo-->
-                <?php
                     echo "Te has registrado correctamente";
                     header("Refresh: 2; url = login.php");
                 }else{
@@ -49,27 +50,17 @@
                 }
             }else{
                 if($contarusuario > 0){
-                ?>
-                <!--Igual podría ir aquí en HTML y borrar el echo-->
-                <?php
-                    echo "El usuario ya existe.<br>";
+                    echo "El usuario ya existe. Prefiere <a href='login.php'> Iniciar Sesión </a><br>";
+                }else{
+                    if($contaremail >0){
+                        echo "El email ya está en uso. Prefiere <a href='login.php'> Iniciar Sesión </a><br>";
+                    }else{
+                        if($contrasena != $repcontrasena) {
+                            echo "Las contraseñas no coinciden. Vuelva a intentarlo.<br>";
+                        }
+                    }
+                    
                 }
-                if($contaremail >0){
-                ?>
-                    <!--Igual podría ir aquí en HTML y borrar el echo-->
-                <?php
-                    echo "El email ya está en uso.";
-                }
-                if($contrasena != $repcontrasena) {
-                ?>
-                    <!--Igual podría ir aquí en HTML y borrar el echo-->
-                <?php
-                    echo "Las contraseñas no coinciden. Vuelva a intentarlo.<br>";
-                }
-                ?>
-                <!--Igual podría ir aquí en HTML y borrar el echo-->
-                <?php
-                echo "<a href='login.php'> Inicie Sesión </a><br>";
             }
         } 
     ?>
