@@ -22,8 +22,8 @@
             <?php 
                 echo "Bienvenid@,  ". $row['nombre']. "<br>" ;
             ?>
+            <a href='index.php'> Volver </a>
             <a href='crearEvento.php'> Crear evento </a>
-            <a href='misEventos.php'> Mis Eventos </a>
             <a href='logout.php'> Salir </a>
             
         </div>
@@ -60,13 +60,8 @@
         <div>  
         <!--Parte de eventos--> 
             <?php
-            $eventos = $connect->query("SELECT * FROM eventos ORDER BY usuario_org");
+            $eventos = $connect->query("SELECT * FROM eventos WHERE usuario_org = '".$_SESSION['id']."'");
             while($row1 = $eventos->fetch_assoc()){
-                $usuario_org = $row1['usuario_org'];
-                $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '$usuario_org'");
-                $row2 = $solicitar->fetch_assoc();
-                echo "Evento creado por:";
-                echo $row2['usuario']."<br>";
                 echo "Nombre del evento:";
                 echo $row1['nombre']."<br>";
                 echo "Fecha:";
