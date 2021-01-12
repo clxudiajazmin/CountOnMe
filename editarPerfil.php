@@ -21,14 +21,15 @@
         <input type="text" placeholder="Nombre Completo" name="nombre" value ="<?php echo $row['nombre'];?>" required><br>
         <input type="email" placeholder="Email" name="email" value ="<?php echo $row['email'];?>" required><br>
         <input type="text" placeholder="Usuario" name="usuario" value ="<?php echo $row['usuario'];?>" required><br>
+
         <input type="radio" name="sexo"
-        <?php if (isset($sexo) && $sexo=="Mujer") echo "checked";?>
+        <?php if (isset($sexo) && $sexo=="Mujer" || $row['sexo'] =="Mujer") echo "checked";?>
         value="Mujer">Mujer
         <input type="radio" name="sexo"
-        <?php if (isset($sexo) && $sexo=="Hombre") echo "checked";?>
+        <?php if (isset($sexo) && $sexo=="Hombre" || $row['sexo'] =="Hombre") echo "checked";?>
         value="Hombre">Hombre
         <input type="radio" name="sexo"
-        <?php if (isset($sexo) && $sexo=="Otro") echo "checked";?>
+        <?php if (isset($sexo) && $sexo=="Otro" || $row['sexo'] =="Otro") echo "checked";?>
         value="Otro">Otro <br>
         <input type="date" placeholder="Fecha de Nacimiento" name="nacimiento" value="<?php echo $row['nacimiento'];?>" required><br>
         <textarea rows="10" cols="50" name ="descripcion" placeholder="Describe para que los demás conozcan un poco sobre ti."><?php echo $row['descripcion'];?></textarea><br>
