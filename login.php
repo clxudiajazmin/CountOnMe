@@ -12,6 +12,7 @@
     <title>Login</title>
 </head>
 <body>
+    <h1>Inicia Sesión</h1> 
     <!--Bloque de Login Mantener los name-->
     <form action="" method="post">
         <input type="text" placeholder="Usuario" name="usuario" required>

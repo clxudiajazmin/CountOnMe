@@ -16,6 +16,7 @@
             $row = $solicitar->fetch_assoc();
         }
     ?>
+    <h1>Crear Evento</h1> 
     <form action="" method="post">
         <input type="text" placeholder="Nombre de Evento" name="nombre" required><br><br>
         <input type="date" placeholder="Fecha de Evento" name="fecha" required><br><br>

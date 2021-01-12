@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Mis Eventos</title>
 </head>
 <body>
     
@@ -19,9 +19,7 @@
     ?>
         <div>
             <!--Esta es la barra superior, donde va el logo y el nombre y logout.-->
-            <?php 
-                echo "Bienvenid@,  ". $row['nombre']. "<br>" ;
-            ?>
+            <h1>Mis Eventos</h1> 
             <a href='index.php'> Volver </a>
             <a href='crearEvento.php'> Crear evento </a>
             <a href='logout.php'> Salir </a>
@@ -73,7 +71,8 @@
                 echo "Categoría:";
                 echo $row1['categoria']."<br>";
                 echo "Ubicación:";
-                echo $row1['ubicacion']."<br><br><br>";
+                echo $row1['ubicacion']."<br>";
+                echo "<a href='editarEvento.php'> Editar </a><br><br>";
             }
             ?>
         </div>

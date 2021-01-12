@@ -6,6 +6,7 @@
     <title>Registro</title>
 </head>
 <body>
+    <h1>Registro</h1> 
     <a href='login.php'> Atrás </a><br><br>
     <!--Bloque de Registro-->
     <form action="" method="post">

@@ -16,6 +16,7 @@
             $row = $solicitar->fetch_assoc();
         }
     ?>
+    <h1>Editar Perfil</h1> 
     <form action="" method="post" enctype="multipart/form-data">
         <input type="file" name="avatar" value ="<?php echo $row['avatar'];?>"><br>
         <input type="text" placeholder="Nombre Completo" name="nombre" value ="<?php echo $row['nombre'];?>" required><br>
