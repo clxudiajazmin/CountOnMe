@@ -20,9 +20,10 @@
         <div>
             <!--Esta es la barra superior, donde va el logo y el nombre y logout.-->
             <h1>Mis Eventos</h1> 
-            <a href='index.php'> Volver </a>
-            <a href='crearEvento.php'> Crear evento </a>
-            <a href='logout.php'> Salir </a>
+            <a href='INDEX.php'> Inicio </a><br>
+            <a href='crearEvento.php'> Crear evento </a><br>
+            <a href='misAmigos.php'> Mis Amigos </a><br>
+            <a href='logout.php'> Salir </a><br>
             
         </div>
 
@@ -56,6 +57,7 @@
             
         </div>
         <div>  
+        <h1> Eventos</h1>
         <!--Parte de eventos--> 
             <?php
             $eventos = $connect->query("SELECT * FROM eventos WHERE usuario_org = '".$_SESSION['id']."'");

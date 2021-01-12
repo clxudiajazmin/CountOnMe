@@ -7,23 +7,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
+    <title>Evento</title>
 </head>
 <body>
-    
     <?php
-        if(isset($_SESSION['usuario'])){
+        if(isset($_GET['id'])){
             require ("config.php");
-            $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '".$_SESSION['id']."'");
+            $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '".$_GET['id']."'");
             $row = $solicitar->fetch_assoc();
     ?>
         <div>
-            <h1>Bienvenid@ <?php echo $row['nombre']?></h1>
             <!--Esta es la barra superior, donde va el logo y el nombre y logout.-->
+            <a href='index.php'> Inicio </a><br>
             <a href='crearEvento.php'> Crear evento </a><br>
             <a href='misEventos.php'> Mis Eventos </a><br>
-            <a href='misAmigos.php'> Mis Amigos </a><br>
             <a href='logout.php'> Salir </a><br>
+            <br><br><br>
             
         </div>
 
@@ -49,31 +48,31 @@
             <?php echo $row['descripcion'];?>
             <br><br>
             <!--Fecha de registro.-->
-            <?php echo "Eres parte de Count On Me desde: ";?>
+            <?php echo "Es parte de Count On Me desde: ";?>
             <?php echo $row['fecha_reg'];?>
-            <br><br>
-            <a href='editarPerfil.php'> Editar Perfil</a>
             <br><br>
             
         </div>
         <div>  
-        <h1> Eventos</h1>
+        <h1> Sus Eventos</h1>
         <!--Parte de eventos--> 
             <?php
-            $eventos = $connect->query("SELECT * FROM eventos ORDER BY usuario_org");
-            while($row1 = $eventos->fetch_assoc()){
-                $usuario_org = $row1['usuario_org'];
-                $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '$usuario_org'");
-                $row2 = $solicitar->fetch_assoc();
-                echo "Nombre del evento:";
-                echo "<a href='verEvento.php?id=".$row1['id']."'>".$row1['nombre']."</a><br>";
-                echo "Fecha:";
-                echo $row1['fecha']."<br>";
-                echo "Aforo:";
-                echo $row1['aforo']."<br>";
-                echo "Evento creado por:";
-                echo "<a href='amigo.php?id=".$row2['id']."'>".$row2['usuario']."</a><br><br><br>";
-            }
+                $eventos = $connect->query("SELECT * FROM eventos WHERE usuario_org = '".$_GET['id']."'");
+                while($row1 = $eventos->fetch_assoc()){
+                    echo "Nombre del evento:";
+                    echo $row1['nombre']."<br>";
+                    echo "Fecha:";
+                    echo $row1['fecha']."<br>";
+                    echo "Aforo:";
+                    echo $row1['aforo']."<br>";
+                    echo "Descripción:";
+                    echo $row1['descripcion']."<br>";
+                    echo "Categoría:";
+                    echo $row1['categoria']."<br>";
+                    echo "Ubicación:";
+                    echo $row1['ubicacion']."<br>";
+                    echo "<a href='editarEvento.php'> Editar </a><br><br>";
+                }
             ?>
         </div>
     <?php }else{
