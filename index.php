@@ -72,7 +72,11 @@
                 echo "Aforo:";
                 echo $row1['aforo']."<br>";
                 echo "Evento creado por:";
-                echo "<a href='amigo.php?id=".$row2['id']."'>".$row2['usuario']."</a><br><br><br>";
+                if($usuario_org == $_SESSION['id']){
+                    echo $row2['usuario']."</a><br><br><br>";
+                }else{
+                    echo "<a href='amigo.php?id=".$row2['id']."'>".$row2['usuario']."</a><br><br><br>";
+                }
             }
             ?>
         </div>

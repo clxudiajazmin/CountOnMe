@@ -17,6 +17,7 @@
             $row = $solicitar->fetch_assoc();
     ?>
         <div>
+            <h1> <?php echo $row['nombre']?></h1>
             <!--Esta es la barra superior, donde va el logo y el nombre y logout.-->
             <a href='index.php'> Inicio </a><br>
             <a href='crearEvento.php'> Crear evento </a><br>
