@@ -32,7 +32,7 @@ session_start();
             <li class="upper-links"><a class="links" href="misAmigos.php">AMIGOS</a></li>
             <li class="upper-links"><a class="links" href="misEventos.php">MIS EVENTOS</a></li>
             <li class="upper-links"><a class="links" href="crearEvento.php">CREAR EVENTO</a></li>
-            <li class="upper-links"><a class="links" href=""><?php echo strtoupper($row['nombre']) ?></a></li>
+            <li class="upper-links"><a class="links" href="perfil.php"><?php echo strtoupper($row['nombre']) ?></a></li>
             <li class="upper-links"><a class="links" href="logout.php">SALIR</a></li>
 
           </ul>
@@ -42,8 +42,8 @@ session_start();
             </div>
             <div class="flipkart-navbar-search smallsearch col-sm-8 col-xs-11">
               <div class="row">
-                <input class="flipkart-navbar-input col-xs-11" type="text" id="buscador" placeholder="Busca tu evento" >
-                <button class="flipkart-navbar-button col-xs-1" id = "boton">
+                <input class="flipkart-navbar-input col-xs-11" type="text" id="buscador" placeholder="Busca tu evento" name = "textobusc">
+                <input type="submit" class="flipkart-navbar-button col-xs-1" id = "boton" name="buscar">
                     <svg width="15px" height="15px">
                         <path d="M11.618 9.897l4.224 4.212c.092.09.1.23.02.312l-1.464 1.46c-.08.08-.222.072-.314-.02L9.868 11.66M6.486 10.9c-2.42 0-4.38-1.955-4.38-4.367 0-2.413 1.96-4.37 4.38-4.37s4.38 1.957 4.38 4.37c0 2.412-1.96 4.368-4.38 4.368m0-10.834C2.904.066 0 2.96 0 6.533 0 10.105 2.904 13 6.486 13s6.487-2.895 6.487-6.467c0-3.572-2.905-6.467-6.487-6.467 "></path>
                     </svg>
@@ -61,7 +61,30 @@ session_start();
         <div class="container">
           <div class="row" id = "resultado">
             <?php
-              filtrar()
+              $eventos = $connect->query("SELECT * FROM eventos ORDER BY usuario_org");
+              while($row1 = $eventos->fetch_assoc()){
+                  $usuario_org = $row1['usuario_org'];
+                  $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '$usuario_org'");
+                  $row2 = $solicitar->fetch_assoc();
+                  echo "
+                  <div class=\"col-md-4 evs \">
+                    <div class=\"card bordeado\">
+                        <div class=\"card-body\">
+                          <h3 class=\"card-title\">
+                            <a href='verEvento.php?id=".$row1['id']."' class=\"text-dark\">".$row1['nombre']."</a><br>
+                            <a href='amigo.php?id=".$row2['id']."' class=\"text-dark\">".$row2['usuario']."</a>
+                          </h3>
+                        </div>
+                        <div class=\"card-footer\">
+                          <div class=\"badge badge-danger float-right\">Aforo: ".$row1['aforo']."</div>
+                            <div class=\"float-left\">
+                              <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
+                            </div>
+                          </div>
+                    </div>
+                  </div>
+                  ";
+              }
             ?>
           </div>
         </div>
@@ -83,67 +106,43 @@ session_start();
     <script src="js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src = "js/main.js"></script>
 
-
-        <div>
-        <h1> Eventos</h1>
-        <!--Parte de eventos-->
-            <?php
-            $eventos = $connect->query("SELECT * FROM eventos ORDER BY usuario_org");
-            while($row1 = $eventos->fetch_assoc()){
-                $usuario_org = $row1['usuario_org'];
-                $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '$usuario_org'");
-                $row2 = $solicitar->fetch_assoc();
-                echo "Nombre del evento:";
-                echo "<a href='verEvento.php?id=".$row1['id']."'>".$row1['nombre']."</a><br>";
-                echo "Fecha:";
-                echo $row1['fecha']."<br>";
-                echo "Aforo:";
-                echo $row1['aforo']."<br>";
-                echo "Evento creado por:";
-                if($usuario_org == $_SESSION['id']){
-                    echo $row2['usuario']."</a><br><br><br>";
-                }else{
-                    echo "<a href='amigo.php?id=".$row2['id']."'>".$row2['usuario']."</a><br><br><br>";
-                }
-            }
-            ?>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <?php }else{
     echo "<a href='login.php'> Debes loguearte </a> o <a href='registro.php'> Registrarte </a>";
   }
   ?>
+
 <?php
+/*
   function filtrar (){
     require ("config.php");
-    $eventos = $connect->query("SELECT * FROM eventos ORDER BY usuario_org");
+    if(isset($_POST['buscar'])){
+      $eventos = $connect->query("SELECT * FROM eventos ORDER BY usuario_org");
+      $buscar = $_POST['textobusc'];
+      while($row1 = $eventos->fetch_assoc()){
+        if(strrpos($row1['nombre'], strtolower($buscar)) === true || strrpos($row1['ubicacion'], strtolower($buscar))=== true){
+          echo "
+          <div class=\"col-md-4 evs \">
+            <div class=\"card bordeado\">
 
-    while($row1 = $eventos->fetch_assoc()){
-      if(strrpos($row1['nombre'], strtolower(buscador.value)) === true || strrpos($row1['ubicacion'], strtolower(buscador.value))=== true){
-        echo "
-        <div class=\"col-md-4 evs \">
-          <div class=\"card bordeado\">
-
-              <div class=\"card-body\">
-                <h3 class=\"card-title\">
-                  <a href=\"\" class=\"text-dark\">".$row1['nombre']."</a>
-                </h3>
-              </div>
-              <div class=\"card-footer\">
-                <div class=\"badge badge-danger float-right\">Aforo: ".$row1['aforo']."</div>
-                  <div class=\"float-left\">
-                    <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
-                  </div>
+                <div class=\"card-body\">
+                  <h3 class=\"card-title\">
+                    <a href=\"\" class=\"text-dark\">".$row1['nombre']."</a>
+                  </h3>
                 </div>
+                <div class=\"card-footer\">
+                  <div class=\"badge badge-danger float-right\">Aforo: ".$row1['aforo']."</div>
+                    <div class=\"float-left\">
+                      <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
+                    </div>
+                  </div>
+            </div>
           </div>
-        </div>
-        ";
+          ";
+      }
     }
-  }
+    
 }
+*/
 ?>
 </body>
 </html>
