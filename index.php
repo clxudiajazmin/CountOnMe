@@ -30,7 +30,7 @@ session_start();
         <div class="row row1">
           <ul class= "largenav pull-right">
             <li class="upper-links"><a class="links" href="misAmigos.php">AMIGOS</a></li>
-            <li class="upper-links"><a class="links" href="misEventos.php">MIS EVENTOs</a></li>
+            <li class="upper-links"><a class="links" href="misEventos.php">MIS EVENTOS</a></li>
             <li class="upper-links"><a class="links" href="crearEvento.php">CREAR EVENTO</a></li>
             <li class="upper-links" <a class="links" href=""><?php echo strtoupper($row['nombre']) ?></a></li>
             <li class="upper-links"><a class="links" href="logout.php">SALIR</a></li>
@@ -55,38 +55,34 @@ session_start();
       </div>
     </div>
 
-
-
-
-        <div>
-            <!--Barra lateral de perfil .-->
-            <!--Imagen de perfil.-->
-            <img src = "<?php echo $row['avatar']; ?>" width="100">
-            <br><br>
-            <!--Usuario.-->
-            <?php echo "Usuario: ";?>
-            <?php echo $row['usuario'];?>
-            <br><br>
-            <!--Fecha de Nacimiento.-->
-            <?php echo "Fecha de Nacimiento: ";?>
-            <?php echo $row['nacimiento'];?>
-            <br><br>
-            <!--Sexo.-->
-            <?php echo "Sexo: ";?>
-            <?php echo $row['sexo'];?>
-            <br><br>
-            <!--Descripción.-->
-            <?php echo "Descripción: ";?>
-            <?php echo $row['descripcion'];?>
-            <br><br>
-            <!--Fecha de registro.-->
-            <?php echo "Eres parte de Count On Me desde: ";?>
-            <?php echo $row['fecha_reg'];?>
-            <br><br>
-            <a href='editarPerfil.php'> Editar Perfil</a>
-            <br><br>
-
+    <!--CUERPO-->
+    <section class="sections random-product ">
+      <div class="container-fluid">
+        <div class="container">
+          <div class="row" id = "resultado">
+            <?$eventos = $connect->query("SELECT * FROM eventos ORDER BY usuario_org");
+            echo"filtar($eventos)"?>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <!--FOOTER-->
+      <section id = "footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
+              <p><i>Count on Me</i> es un proyecto desarrollado por Sofía Martínez Parada y Claudia Jazmín Soria Saavedra para la asignatura de Desarrollo Web y de Apps</p>
+              <p class="h6">© All rights reserved.</p>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </section>
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src = "js/main.js"></script>
+
+
         <div>
         <h1> Eventos</h1>
         <!--Parte de eventos-->
@@ -114,15 +110,7 @@ session_start();
       </div>
     </div>
   </div>
-  <!--<div>-->
-    <!--Esta es la barra superior, donde va el logo y el nombre y logout.-->
-    <?php
-    //echo "Bienvenid@,  ". $row['nombre']. "<br>" ;
-      ?>
-    <!--   <a href='crearEvento.php'> Crear evento </a>-->
-    <!--   <a href='logout.php'> Salir </a>-->
 
-  <!--   </div>-->
     <div>
       <!--Barra lateral de perfil .-->
       <!--Imagen de perfil.-->
