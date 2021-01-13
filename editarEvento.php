@@ -10,10 +10,10 @@
 </head>
 <body>
     <?php
-        if(isset($_SESSION['usuario'])){
+        if(isset($_GET['id'])){
             require ("config.php");
-            $solicitar = $connect->query("SELECT  * FROM eventos WHERE usuario_org = '".$_SESSION['id']."'");
-            $row = $solicitar->fetch_assoc();
+            $eventos = $connect->query("SELECT  * FROM eventos WHERE id = '".$_GET['id']."'");
+            $row = $eventos->fetch_assoc();
         }
     ?>
     <h1>Editar Evento</h1> 
@@ -36,7 +36,7 @@
             $categoria = $_POST['categoria'];
             $ubicacion = $_POST['ubicacion'];
 
-            $insertar = $connect->query("UPDATE eventos SET nombre = '$nombre', fecha = '$fecha', aforo = '$aforo', descripcion = '$descripcion', categoria = '$categoria', ubicacion = '$ubicacion' WHERE usuario_org = '".$_SESSION['id']."'");
+            $insertar = $connect->query("UPDATE eventos SET nombre = '$nombre', fecha = '$fecha', aforo = '$aforo', descripcion = '$descripcion', categoria = '$categoria', ubicacion = '$ubicacion' WHERE id = '".$_GET['id']."'");
             if ($insertar) {
                 echo "Evento actualizado correctamente.";
                 header("Refresh: 2; url = misEventos.php");

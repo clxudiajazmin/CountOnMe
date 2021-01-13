@@ -74,7 +74,7 @@
                 echo $row1['categoria']."<br>";
                 echo "Ubicación:";
                 echo $row1['ubicacion']."<br>";
-                echo "<a href='editarEvento.php'> Editar </a><br><br>";
+                echo "<a href='editarEvento.php?id=".$row1['id']."'> Editar </a><br><br>";
             }
             ?>
         </div>
