@@ -1,0 +1,80 @@
+.sections{
+    text-align: left;
+    padding-bottom: 2rem;
+}
+
+.imageavatar{
+  width: 3%;
+  height: 3%;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: $card-bg;
+  background-clip: border-box;
+  border: $card-border-width solid $card-border-color;
+  @include border-radius($card-border-radius);
+
+  > hr {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  > .list-group:first-child {
+    .list-group-item:first-child {
+      @include border-top-radius($card-border-radius);
+    }
+  }
+
+  > .list-group:last-child {
+    .list-group-item:last-child {
+      @include border-bottom-radius($card-border-radius);
+    }
+  }
+}
+
+.card-body {
+  // Enable `flex-grow: 1` for decks and groups so that card blocks take up
+  // as much space as possible, ensuring footers are aligned to the bottom.
+  flex: 1 1 auto;
+  padding: 2%;
+}
+
+.card-title {
+  margin-bottom: $card-spacer-y;
+}
+
+.card-footer{
+  padding: 2%;
+}
+
+.evs{
+  margin-top: 3%;
+}
+
+.badge-danger {
+    color: #fff;
+    background-color: #dc3545;
+}
+.bordeado{
+  border: 0.5px solid grey;
+}
+.badge {
+    display: inline-block;
+    padding: .25em .4em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+}
+
+.float-right {
+    float: right !important;
+}

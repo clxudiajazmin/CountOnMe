@@ -32,6 +32,7 @@ CREATE TABLE `eventos` (
   `descripcion` varchar(100),
   `categoria` varchar(100),
   `ubicacion` varchar(100),
+  `precio` int(10),
   PRIMARY KEY (`id`),
   CONSTRAINT `FK_usuario` FOREIGN KEY (`usuario_org`) REFERENCES `usuarios`(`id`)
   ) ENGINE = InnoDB DEFAULT CHARSET=latin1;

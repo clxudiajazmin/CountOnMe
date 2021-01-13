@@ -1,0 +1,13 @@
+/* Footer */
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+section {
+  padding: 2vw 0;
+}
+
+#footer{
+  position: sticky;
+  bottom:0;
+  width:100%;
+  background-color: #2874f0;
+  color: #FFFFFF
+}
