@@ -1,24 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
-</head>
-<body>
-    <h1>Registro</h1> 
-    <a href='login.php'> Atrás </a><br><br>
-    <!--Bloque de Registro-->
-    <form action="" method="post">
-        <input type="text" placeholder="Nombre Completo" name="nombre" required>
-        <input type="email" placeholder="Email" name="email" required>
-        <input type="text" placeholder="Usuario" name="usuario" required>
-        <input type="password"  placeholder="Contraseña" name="contrasena" required>
-        <input type="password"  placeholder="Repita Contraseña" name="repcontrasena" required>
-        <input type="submit" name="reg" value="Registrar">
-    </form>
-    <br><br>
-    
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Count on Me</title>
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/norm.css">
+  </head>
+  <body>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <!-- HEADER-->
+    <div id ="flipkart-navbar">
+      <div class="container">
+        <div class="row row1">
+          <div class="row row2">
+            <div class="col-sm-2">
+              <h1 style="margin:0px;"><span class="largenav">Count on Me</span></h1>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
+    <!--CUERPO-->
+    <center>
+      <div class="container">
+        <div class="row">
+          <div class="card">
+            <article class="card-body">
+              <h4 class="card-title text-center mb-4 mt-1">Regístrate aquí</h4>
+              <hr>
+              <form action="" method="post">
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"> <i class="fa fa-user"></i> Nombre </span>
+                    </div>
+                    <input name="nombre" class="form-control" placeholder="Nombre" type="text">
+                  </div> <!-- input-group.// -->
+                </div> <!-- form-group// -->
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"> <i class="fa fa-user"></i> Username </span>
+                    </div>
+                    <input name="usuario" class="form-control" placeholder="Username" type="text">
+                  </div> <!-- input-group.// -->
+                </div> <!-- form-group// -->
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"> <i class="fa fa-user"></i> Email </span>
+                    </div>
+                    <input name="email" class="form-control" placeholder="Email" type="email">
+                  </div> <!-- input-group.// -->
+                </div> <!-- form-group// -->
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"> <i class="fa fa-lock"></i> Contraseña </span>
+                    </div>
+                    <input name = "contrasena" class="form-control" placeholder="******" type="password">
+                  </div> <!-- input-group.// -->
+                </div> <!-- form-group// -->
+
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text"> <i class="fa fa-lock"></i> Repite la Contraseña</span>
+                    </div>
+                    <input name = "repcontrasena"  class="form-control" placeholder="******" type="password">
+                  </div> <!-- input-group.// -->
+                </div> <!-- form-group// -->
+
+                <div class="form-group">
+                  <button type="submit" name = "reg" class="btn btn-primary btn-block"> Registrarme  </button>
+                </div> <!-- form-group// -->
+                </form>
+            </article>
+          </div>
+        </div>
+      </div>
+    </center>
 
 
     <?php
@@ -51,10 +120,10 @@
                 }
             }else{
                 if($contarusuario > 0){
-                    echo "El usuario ya existe. Prefiere <a href='login.php'> Iniciar Sesión </a><br>";
+                    echo "El usuario ya existe. Prefieres <a href='login.php'> Iniciar Sesión </a><br>";
                 }else{
                     if($contaremail >0){
-                        echo "El email ya está en uso. Prefiere <a href='login.php'> Iniciar Sesión </a><br>";
+                        echo "El email ya está en uso. Prefieres <a href='login.php'> Iniciar Sesión </a><br>";
                     }else{
                         if($contrasena != $repcontrasena) {
                             echo "Las contraseñas no coinciden. Vuelva a intentarlo.<br>";
