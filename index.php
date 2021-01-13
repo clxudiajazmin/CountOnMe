@@ -61,7 +61,7 @@ session_start();
         <div class="container">
           <div class="row" id = "resultado">
             <?$eventos = $connect->query("SELECT * FROM eventos ORDER BY usuario_org");
-            echo"filtar($eventos)"?>
+            echo"filtrar($eventos)"?>
           </div>
         </div>
       </div>
