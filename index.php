@@ -60,8 +60,7 @@ session_start();
       <div class="container-fluid">
         <div class="container">
           <div class="row" id = "resultado">
-            <?$eventos = $connect->query("SELECT * FROM eventos ORDER BY usuario_org");
-            echo"filtrar($eventos)"?>
+            <?phpfiltrar()?>
           </div>
         </div>
       </div>
@@ -162,8 +161,33 @@ session_start();
   <?php }else{
     echo "<a href='login.php'> Debes loguearte </a> o <a href='registro.php'> Registrarte </a>";
   }
-
   ?>
+<?phpfunction filtrar (){
+  $eventos = $connect->query("SELECT * FROM eventos ORDER BY usuario_org");
 
+  while($row1 = $eventos->fetch_assoc()){
+    if(strrpos($row1['nombre'], strtolower(buscador.value)) === true || strrpos($row1['ubicacion'], strtolower(buscador.value))=== true){
+      echo "
+      <div class=\"col-md-4 evs \">
+        <div class=\"card bordeado\">
+
+            <div class=\"card-body\">
+              <h3 class=\"card-title\">
+                <a href=\"\" class=\"text-dark\">".$row1['nombre']."</a>
+              </h3>
+            </div>
+            <div class=\"card-footer\">
+              <div class=\"badge badge-danger float-right\">Aforo: ".$row1['aforo']."</div>
+                <div class=\"float-left\">
+                  <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
+                </div>
+              </div>
+        </div>
+      </div>
+      ";
+    }
+  }
+}
+?>
 </body>
 </html>
