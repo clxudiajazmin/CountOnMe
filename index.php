@@ -32,7 +32,7 @@ session_start();
             <li class="upper-links"><a class="links" href="misAmigos.php">AMIGOS</a></li>
             <li class="upper-links"><a class="links" href="misEventos.php">MIS EVENTOS</a></li>
             <li class="upper-links"><a class="links" href="crearEvento.php">CREAR EVENTO</a></li>
-            <li class="upper-links"><a class="links" href="perfil.php"><?php echo strtoupper($row['nombre']) ?></a></li>
+            <li class="upper-links"><a class="links" href="editarPerfil.php"><?php echo strtoupper($row['nombre']) ?></a></li>
             <li class="upper-links"><a class="links" href="logout.php">SALIR</a></li>
 
           </ul>

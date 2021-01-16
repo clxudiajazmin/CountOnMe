@@ -117,7 +117,7 @@
                                <div class="col-xs-12">
                                     <br>
                                   	<button class="btn btn-lg btn-success" type="submit" name = "act"> Guardar</button>
-                                   	<button class="btn btn-lg" type="reset">Resetear</button>
+                                   	<button class="btn btn-lg" type="reset"><a href='index.php'> Regresar </a></button>
                                 </div>
                           </div>
                   	</form>
@@ -175,9 +175,7 @@
             }
 
         }
-    ?>
-    <br>
-    <a href='index.php'> Regresar </a>    
-
+        
+    ?> 
 </body>
 </html>
