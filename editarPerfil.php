@@ -43,7 +43,8 @@
           <div class="text-center">
             <img src = "<?php echo $row['avatar']; ?>" class="avatar img-circle img-thumbnail" alt="avatar">
             <h6>Sube una nueva foto de perfil</h6>
-            <input type="file" name="avatar" value ="<?php echo $row['avatar'];?>" class="text-center center-block file-upload fotomaxwidth">
+            <input type="file" name="avatar" value ="<?php echo $row['avatar'];?>" class="text-center center-block file-upload fotomaxwidth" style="display:"Examinar";">
+
           </div>
         </div><!--/col-3-->
         	<div class="col-sm-9">
