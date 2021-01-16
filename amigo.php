@@ -19,7 +19,18 @@
             require ("config.php");
             $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '".$_GET['id']."'");
             $row = $solicitar->fetch_assoc();
+            $seguido = $connect->query("SELECT  * FROM amistades WHERE solicitante = '".$_SESSION['id']."' AND solicitado = '".$_GET['id']."'");
+            $cuantos = $seguido->num_rows;
     ?>
+    <?php
+        if(isset($_GET['seguir'])){
+          require ("config.php");
+          if($cuantos > 0){
+            header("Refresh: 1; url = amigo.php?id=".$_GET['id']);
+          }
+        }
+    ?>
+    
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <!-- HEADER-->
     <div id ="flipkart-navbar">
@@ -92,7 +103,21 @@
                           <div class="form-group">
                                <div class="col-xs-12">
                                     <br>
-                                  	<button class="btn btn-lg btn-success" type="submit" name = "act"> Agregar amigo</button>
+                                    <?php
+                                        if($cuantos > 0){
+                                    ?>
+                                    <a href="?seguir=seguir&id=<?php echo $_GET['id'];?>"><button class="btn btn-lg btn-success" type="submit">Seguido</button></a>
+                                    <?php
+                                        $seguir = $connect->query("INSERT INTO amistades (solicitante, solicitado, aceptado) 
+                                        VALUES ('".$_SESSION['id']."','".$_GET['id']."', '1')");
+                                        }else{
+                                    ?>
+                                    <a href="?seguir=seguir&id=<?php echo $_GET['id'];?>"><button class="btn btn-lg btn-success" type="submit">Seguir</button></a>
+                                    <?php
+                                        $seguir = $connect->query("INSERT INTO amistades (solicitante, solicitado, aceptado) 
+                                        VALUES ('".$_SESSION['id']."','".$_GET['id']."', '1')");
+                                        }
+                                    ?>
                                    	<button class="btn btn-lg" type="reset"><a href='index.php'> Regresar </a></button>
                                 </div>
                           </div>

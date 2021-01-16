@@ -66,13 +66,14 @@ session_start();
                   $usuario_org = $row1['usuario_org'];
                   $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '$usuario_org'");
                   $row2 = $solicitar->fetch_assoc();
-                  echo "
+                  if($row2['id'] == $_SESSION['id']){
+                    echo "
                   <div class=\"col-md-4 evs \">
                     <div class=\"card bordeado\">
                         <div class=\"card-body\">
                           <h3 class=\"card-title\">
                             <a href='verEvento.php?id=".$row1['id']."' class=\"text-dark\">".$row1['nombre']."</a><br>
-                            <a href='amigo.php?id=".$row2['id']."' class=\"text-dark\">".$row2['usuario']."</a>
+                            ".$row2['usuario']."
                           </h3>
                         </div>
                         <div class=\"card-footer\">
@@ -84,6 +85,26 @@ session_start();
                     </div>
                   </div>
                   ";
+                  }else{
+                    echo "
+                    <div class=\"col-md-4 evs \">
+                      <div class=\"card bordeado\">
+                          <div class=\"card-body\">
+                            <h3 class=\"card-title\">
+                              <a href='verEvento.php?id=".$row1['id']."' class=\"text-dark\">".$row1['nombre']."</a><br>
+                              <a href='amigo.php?id=".$row2['id']."' class=\"text-dark\">".$row2['usuario']."</a>
+                            </h3>
+                          </div>
+                          <div class=\"card-footer\">
+                            <div class=\"badge badge-danger float-right\">Aforo: ".$row1['aforo']."</div>
+                              <div class=\"float-left\">
+                                <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
+                              </div>
+                            </div>
+                      </div>
+                    </div>
+                    ";
+                  }
               }
             ?>
           </div>
@@ -92,7 +113,7 @@ session_start();
     </section>
 
     <!--FOOTER-->
-      <section id = "footer">
+    <section id = "footer">
         <div class="container">
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
