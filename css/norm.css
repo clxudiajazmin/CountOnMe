@@ -8,6 +8,10 @@
   height: 3%;
 }
 
+
+.fotomaxwidth{
+  max-width: 40%;
+}
 .card {
   position: relative;
   display: flex;
