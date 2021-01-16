@@ -146,12 +146,14 @@
                     <div class=\"card bordeado\">
                         <div class=\"card-body\">
                           <h3 class=\"card-title\">
-                            <a href='verEvento.php?id=".$row1['id']."' class=\"text-dark\">".$row1['nombre']."</a><br>
+                            <p class=\"text-dark\">".$row1['nombre']."</p>
                           </h3>
+                          <p class=\"text-dark\">".$row1['descripcion']." </p>
                         </div>
                         <div class=\"card-footer\">
                           <div class=\"badge badge-danger float-right\">Aforo: ".$row1['aforo']."</div>
                             <div class=\"float-left\">
+                              <p class=\"text-danger\">".$row1['categoria']."</p>
                               <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
                             </div>
                           </div>
