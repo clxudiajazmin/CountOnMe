@@ -1,5 +1,6 @@
 <?php
     session_start();
+    ob_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -104,6 +105,7 @@
                                <div class="col-xs-12">
                                     <br>
                                     <button class="btn btn-lg btn-success" type="submit" name = "event"> Crear</button>
+                                    <button class="btn btn-lg" type="reset"><a href='index.php'> Regresar </a></button>
                                 </div>
                           </div>
                           </center>
@@ -150,7 +152,5 @@
             }
         } 
     ?>
-    <br><br>
-    <a href='index.php'> Regresar </a>    
 </body>
 </html>
