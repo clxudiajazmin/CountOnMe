@@ -75,14 +75,14 @@
                 //Creo sesiones
                 $_SESSION['usuario'] = $usuario;
                 $_SESSION['id'] = $dato['id'];
-                //Redirigo a index 
+                //Redirigo a index
                 header("Location: index.php");
             }
         }
     ?>
 
     <!--FOOTER-->
-    <section id = "footer">
+    <section id = "footer" class = "absolute">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">

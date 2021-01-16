@@ -10,8 +10,7 @@
 
 
 .fotomaxwidth{
-  align-content: center;
-  max-width: 54%;
+  max-width: 40%;
 }
 .card {
   position: relative;

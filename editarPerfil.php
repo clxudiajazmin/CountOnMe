@@ -37,7 +37,7 @@
 
     <br>
     <div class="container bootstrap snippet">
-      <form action="" method="post" enctype="multipart/form-data" id="registrationForm">  
+      <form action="" method="post" enctype="multipart/form-data" id="registrationForm">
       <div class="row">
         <div class="col-sm-3"><!--left col-->
           <div class="text-center">
@@ -138,7 +138,7 @@
 <br>
 <br>
     <!--FOOTER-->
-      <section id = "footer">
+      <section id = "footer" class = "absolute">
         <div class="container">
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
@@ -151,7 +151,7 @@
       </section>
 
 
-    
+
     <?php
         if(isset($_POST['act'])){
             $carpeta = "fotos_perfil/";
@@ -175,7 +175,7 @@
             }
 
         }
-        
-    ?> 
+
+    ?>
 </body>
 </html>
