@@ -50,8 +50,8 @@
             <!--Fecha de registro.-->
             <?php echo "Eres parte de Count On Me desde: ";?>
             <?php echo $row['fecha_reg'];?>
-            <br><br>
-            
+            <br><br><br>
+            <a href='editarPerfil.php'> Editar Perfil </a><br>
         </div>
     <?php }else{
             echo "<a href='login.php'> Debes loguearte </a> o <a href='registro.php'> Registrarte </a>";

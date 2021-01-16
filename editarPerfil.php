@@ -50,7 +50,7 @@
             $descripcion = $_POST['descripcion'];
 
             if(move_uploaded_file($_FILES['avatar']['tmp_name'], $carpeta."id_".$_SESSION['id']."_fotoperfil.jpg")){
-
+                echo "Fotos";
                 $insertar = $connect->query("UPDATE usuarios SET nombre ='$nombre', avatar = '$ruta', email = '$email', usuario = '$usuario', sexo = '$sexo', descripcion = '$descripcion', nacimiento = '$nacimiento' WHERE id = '".$_SESSION['id']."'");
                 echo "Datos actualizados correctamente.";
                 header("Refresh: 2; url = index.php");
