@@ -132,7 +132,8 @@ session_start();
     <script type="text/javascript" src = "js/main.js"></script>
 
   <?php }else{
-    echo "<a href='login.php'> Debes loguearte </a> o <a href='registro.php'> Registrarte </a>";
+    header("Location: login.php");
+    exit;
   }
   ?>
 
@@ -165,7 +166,7 @@ session_start();
           ";
       }
     }
-    
+
 }
 */
 ?>
