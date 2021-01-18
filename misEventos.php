@@ -38,7 +38,7 @@
         </ul>
         <div class="row row2">
             <div class="col-sm-2">
-            <h1 style="margin:0px;"><span class="largenav">Count on Me</span></h1>
+              <h1 style="margin:0px;"><span class="largenav"><a style="color:#FFFFFF; text-decoration: none;" href = "index.php">Count on Me</a></span></h1>
             </div>
             <div class="flipkart-navbar-search smallsearch col-sm-8 col-xs-11">
             <div class="row">
@@ -95,7 +95,7 @@
       </div>
     </section>
         <!--FOOTER-->
-    <section id = "footer">
+    <section id = "footer" class = "fixed">
         <div class="container">
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">

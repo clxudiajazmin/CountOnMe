@@ -134,5 +134,17 @@
             }
         } 
     ?>
+        <!--FOOTER-->
+      <section id = "footer" class="absolute">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
+              <p><i>Count on Me</i> es un proyecto desarrollado por Sofía Martínez Parada y Claudia Jazmín Soria Saavedra para la asignatura de Desarrollo Web y de Apps</p>
+              <p class="h6">© All rights reserved.</p>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </section>
 </body>
 </html>

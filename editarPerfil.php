@@ -28,7 +28,7 @@
         <div class="row row1">
           <div class="row row2">
             <div class="col-sm-2">
-              <h1 style="margin:0px;"><span class="largenav">Count on Me</span></h1>
+              <h1 style="margin:0px;"><span class="largenav"><a style="color:#FFFFFF; text-decoration: none;" href = "index.php">Count on Me</a></span></h1>
             </div>
             </div>
         </div>
@@ -138,20 +138,6 @@
 <br>
 <br>
 <br>
-   <!--FOOTER-->
-   <section id = "footer">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
-              <p><i>Count on Me</i> es un proyecto desarrollado por Sofía Martínez Parada y Claudia Jazmín Soria Saavedra para la asignatura de Desarrollo Web y de Apps</p>
-              <p class="h6">© All rights reserved.</p>
-            </div>
-            <hr>
-          </div>
-        </div>
-      </section>
-
-
 
     <?php
         if(isset($_POST['act'])){
@@ -198,5 +184,22 @@
           
         }
     ?>
+
+    </div>
+       <!--FOOTER-->
+   <section id = "footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
+              <p><i>Count on Me</i> es un proyecto desarrollado por Sofía Martínez Parada y Claudia Jazmín Soria Saavedra para la asignatura de Desarrollo Web y de Apps</p>
+              <p class="h6">© All rights reserved.</p>
+            </div>
+            <hr>
+          </div>
+        </div>
+      </section>
+
+
+
 </body>
 </html>

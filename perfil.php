@@ -92,7 +92,7 @@
             <a href='editarPerfil.php'> Editar Perfil </a><br>
         </div>
     <?php }else{
-            echo "<a href='login.php'> Debes loguearte </a> o <a href='registro.php'> Registrarte </a>";
+            header('Location: '.$login.php);
         }
 
     ?>

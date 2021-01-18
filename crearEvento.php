@@ -35,7 +35,7 @@
           </ul>
           <div class="row row2">
             <div class="col-sm-2">
-              <h1 style="margin:0px;"><span class="largenav">Count on Me</span></h1>
+              <h1 style="margin:0px;"><span class="largenav"><a style="color:#FFFFFF; text-decoration: none;" href = "index.php">Count on Me</a></span></h1>
             </div>
           </div>
         </div>
