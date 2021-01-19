@@ -21,12 +21,50 @@ session_start();
             require ("config.php");
             $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '".$_SESSION['id']."'");
             $row = $solicitar->fetch_assoc();
-            
+            $apuntados = $connect->query("SELECT  * FROM asistencia WHERE usuario = '".$_SESSION['id']."'");
+            $cuantos = $apuntados->num_rows;
     ?>
 
     <?php
-        if(isset($_GET['seguir'])){
+        if(isset($_GET['apuntarse'])){
           require ("config.php");
+
+          if($_GET['aforo']-1 >= 0){
+            $apuntado = $connect->query("INSERT INTO asistencia (usuario, evento, estado) 
+            VALUES ('".$_SESSION['id']."','".$_GET['id']."', '1')");
+            if($cuantos >0){
+              header("Refresh: 0.1; url = index.php");
+            }
+          }
+          
+        }
+    ?>
+
+    <?php
+        if(isset($_GET['reapuntarse'])){
+          require ("config.php");
+
+          if($_GET['aforo']-1 >= 0){
+            $apuntado = $connect->query("UPDATE asistencia SET estado = 1 WHERE usuario = '".$_SESSION['id']."' AND evento = '".$_GET['id']."'");
+            if($cuantos >0){
+              header("Refresh: 0.1; url = index.php");
+            }
+          }
+          
+        }
+    ?>
+
+<?php
+        if(isset($_GET['desapuntarse'])){
+          require ("config.php");
+
+          if($_GET['aforo']-1 >= 0){
+            $apuntado = $connect->query("UPDATE asistencia SET estado = 0 WHERE usuario = '".$_SESSION['id']."' AND evento = '".$_GET['id']."'");
+            if($cuantos >0){
+              header("Refresh: 0.1; url = index.php");
+            }
+          }
+          
         }
     ?>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
@@ -74,9 +112,6 @@ session_start();
                   $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '$usuario_org'");
                   $row2 = $solicitar->fetch_assoc();
 
-                  $asistencia = $connect->query("SELECT  * FROM asistencia WHERE usuario = '".$_SESSION['id']."' AND evento = '".$row1['id']."'");
-                  $cuantos = $asistencia->num_rows;
-
 
                   if($row2['id'] == $_SESSION['id']){
                     echo "
@@ -100,7 +135,10 @@ session_start();
                   </div>
                   ";
                   }else{
-                    echo "
+                    $asistencia = $apuntados->fetch_assoc();
+                    if($cuantos > 0){
+                      if($asistencia['estado'] == 1){
+                        echo "
                     <div class=\"col-md-4 evs \">
                       <div class=\"card bordeado\">
                           <div class=\"card-body\">
@@ -115,12 +153,59 @@ session_start();
                               <div class=\"float-left\">
                                 <p class=\"text-danger\">".$row1['categoria']."</p>
                                 <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
-                                <a href='?seguir=seguir&id=".$row1['id']."'> Apuntarse </a>
+                                <a href='?desapuntarse=desapuntarse&id=".$row1['id']."&aforo=".$row1['aforo']."'> Desapuntarse </a>
                               </div>
                             </div>
                       </div>
                     </div>
                     ";
+                      }else{
+                        echo "
+                    <div class=\"col-md-4 evs \">
+                      <div class=\"card bordeado\">
+                          <div class=\"card-body\">
+                            <h3 class=\"card-title\">
+                              <p class=\"text-dark\">".$row1['nombre']."</p>
+                              <a href='amigo.php?id=".$row2['id']."' class=\"text-dark\">".$row2['usuario']."</a>
+                            </h3>
+                            <p class=\"text-dark\">".$row1['descripcion']." </p>
+                          </div>
+                          <div class=\"card-footer\">
+                            <div class=\"badge badge-danger float-right\">Aforo: ".$row1['aforo']."</div>
+                              <div class=\"float-left\">
+                                <p class=\"text-danger\">".$row1['categoria']."</p>
+                                <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
+                                <a href='?reapuntarse=reapuntarse&id=".$row1['id']."&aforo=".$row1['aforo']."'> Apuntarse </a>
+                              </div>
+                            </div>
+                      </div>
+                    </div>
+                    ";
+                      }
+                    }else{
+                      echo "
+                    <div class=\"col-md-4 evs \">
+                      <div class=\"card bordeado\">
+                          <div class=\"card-body\">
+                            <h3 class=\"card-title\">
+                              <p class=\"text-dark\">".$row1['nombre']."</p>
+                              <a href='amigo.php?id=".$row2['id']."' class=\"text-dark\">".$row2['usuario']."</a>
+                            </h3>
+                            <p class=\"text-dark\">".$row1['descripcion']." </p>
+                          </div>
+                          <div class=\"card-footer\">
+                            <div class=\"badge badge-danger float-right\">Aforo: ".$row1['aforo']."</div>
+                              <div class=\"float-left\">
+                                <p class=\"text-danger\">".$row1['categoria']."</p>
+                                <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
+                                <a href='?apuntarse=apuntarse&id=".$row1['id']."&aforo=".$row1['aforo']."'> Apuntarse </a>
+                              </div>
+                            </div>
+                      </div>
+                    </div>
+                    ";
+                    }
+                    
                   }
               }
             ?>

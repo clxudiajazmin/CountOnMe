@@ -158,26 +158,22 @@
               echo "Sin contraseña";
               if(move_uploaded_file($_FILES['avatar']['tmp_name'], $carpeta."id_".$_SESSION['id']."_fotoperfil.jpg")){
                 $insertar = $connect->query("UPDATE usuarios SET nombre ='$nombre', avatar = '$ruta', email = '$email', usuario = '$usuario', sexo = '$sexo', descripcion = '$descripcion', nacimiento = '$nacimiento' WHERE id = '".$_SESSION['id']."'");
-                echo " Nueva foto de perfil! Datos actualizados correctamente. Sin contraseña";
-                header("Refresh: 2; url = index.php");
+                header("Refresh: 0.1; url = editarPerfil.php");
               }else{
                 $insertar = $connect->query("UPDATE usuarios SET nombre ='$nombre', email = '$email', usuario = '$usuario', sexo = '$sexo', contrasena = '$contrasenaantigua', descripcion = '$descripcion', nacimiento = '$nacimiento' WHERE id = '".$_SESSION['id']."'");
-                echo " Nueva foto de perfil! Datos actualizados correctamente. Sin contraseña";
-                header("Refresh: 2; url = index.php");
+                header("Refresh: 0.1; url = editarPerfil.php");
               }
           }else{
               $encriptada = md5($contrasena);
               if(move_uploaded_file($_FILES['avatar']['tmp_name'], $carpeta."id_".$_SESSION['id']."_fotoperfil.jpg") and $contrasena == $repcontrasena){
                 $insertar = $connect->query("UPDATE usuarios SET nombre ='$nombre', avatar = '$ruta', contrasena = '$encriptada', email = '$email', usuario = '$usuario', sexo = '$sexo', descripcion = '$descripcion', nacimiento = '$nacimiento' WHERE id = '".$_SESSION['id']."'");
-                echo " Nueva foto de perfil! Datos actualizados correctamente.";
-                header("Refresh: 2; url = index.php");
+                header("Refresh: 0.1; url = editarPerfil.php");
               }else{
                 if($contrasena != $repcontrasena){
                   echo "Las contraseñas no coinciden. Vuelva a intentarlo.<br>";
                 }else{
                   $insertar = $connect->query("UPDATE usuarios SET nombre ='$nombre', email = '$email', contrasena = '$encriptada', usuario = '$usuario', sexo = '$sexo', descripcion = '$descripcion', nacimiento = '$nacimiento' WHERE id = '".$_SESSION['id']."'");
-                echo "Datos actualizados correctamente.";
-                header("Refresh: 1; url = index.php");
+                header("Refresh: 0.1; url = editarPerfil.php");
                 }
               }
             }

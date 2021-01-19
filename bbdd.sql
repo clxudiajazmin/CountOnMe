@@ -55,3 +55,5 @@ CREATE TABLE `asistencia`(
   CONSTRAINT `FK_usuario_asistencia`FOREIGN KEY (`usuario`) REFERENCES `usuarios` (`id`)
 
 )ENGINE = InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `asistencia` ADD `estado` BIT(1) NOT NULL AFTER `usuario`; 
