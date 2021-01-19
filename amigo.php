@@ -21,13 +21,36 @@
             $row = $solicitar->fetch_assoc();
             $seguido = $connect->query("SELECT  * FROM amistades WHERE solicitante = '".$_SESSION['id']."' AND solicitado = '".$_GET['id']."'");
             $cuantos = $seguido->num_rows;
+            
     ?>
     <?php
         if(isset($_GET['seguir'])){
           require ("config.php");
-          if($cuantos > 0){
-            header("Refresh: 1; url = amigo.php?id=".$_GET['id']);
-          }
+            $seguir = $connect->query("INSERT INTO amistades (solicitante, solicitado, aceptado) 
+            VALUES ('".$_SESSION['id']."','".$_GET['id']."', '1')");
+            if($cuantos >0){
+            header("Refresh: 0.1; url = amigo.php?id=".$_GET['id']);
+            }
+        }
+    ?>
+
+    <?php
+        if(isset($_GET['dejarseguir'])){
+          require ("config.php");
+            $insertar = $connect->query("UPDATE amistades SET aceptado = 0 WHERE solicitante = '".$_SESSION['id']."' AND solicitado = '".$_GET['id']."'");
+            if($cuantos >0){
+            header("Refresh: 0.1; url = amigo.php?id=".$_GET['id']);
+            }
+        }
+    ?>
+
+    <?php
+        if(isset($_GET['seguirnuevamente'])){
+          require ("config.php");
+            $insertar = $connect->query("UPDATE amistades SET aceptado = 1 WHERE solicitante = '".$_SESSION['id']."' AND solicitado = '".$_GET['id']."'");
+            if($cuantos >0){
+            header("Refresh: 0.1; url = amigo.php?id=".$_GET['id']);
+            }
         }
     ?>
     
@@ -104,19 +127,22 @@
                                <div class="col-xs-12">
                                     <br>
                                     <?php
+                                        $amistad = $seguido->fetch_assoc();
                                         if($cuantos > 0){
+                                          if($amistad['aceptado'] == 1){
                                     ?>
-                                    <a href="?seguir=seguir&id=<?php echo $_GET['id'];?>"><button class="btn btn-lg btn-success" type="submit">Seguido</button></a>
+                                    <a href="?dejarseguir=dejarseguir&id=<?php echo $_GET['id'];?>"><button class="btn btn-lg btn-success" type="submit">Dejar de Seguir</button></a>
                                     <?php
-                                        $seguir = $connect->query("INSERT INTO amistades (solicitante, solicitado, aceptado) 
-                                        VALUES ('".$_SESSION['id']."','".$_GET['id']."', '1')");
                                         }else{
+                                    ?>
+                                    <a href="?seguirnuevamente=seguirnuevamente&id=<?php echo $_GET['id'];?>"><button class="btn btn-lg btn-success" type="submit">Seguir</button></a>
+                                    <?php
+                                        }
+                                      }else{
                                     ?>
                                     <a href="?seguir=seguir&id=<?php echo $_GET['id'];?>"><button class="btn btn-lg btn-success" type="submit">Seguir</button></a>
                                     <?php
-                                        $seguir = $connect->query("INSERT INTO amistades (solicitante, solicitado, aceptado) 
-                                        VALUES ('".$_SESSION['id']."','".$_GET['id']."', '1')");
-                                        }
+                                    }
                                     ?>
                                    	<button class="btn btn-lg" type="reset"><a href='index.php'> Regresar </a></button>
                                 </div>

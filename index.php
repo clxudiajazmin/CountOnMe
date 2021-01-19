@@ -21,6 +21,13 @@ session_start();
             require ("config.php");
             $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '".$_SESSION['id']."'");
             $row = $solicitar->fetch_assoc();
+            
+    ?>
+
+    <?php
+        if(isset($_GET['seguir'])){
+          require ("config.php");
+        }
     ?>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
@@ -66,6 +73,11 @@ session_start();
                   $usuario_org = $row1['usuario_org'];
                   $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '$usuario_org'");
                   $row2 = $solicitar->fetch_assoc();
+
+                  $asistencia = $connect->query("SELECT  * FROM asistencia WHERE usuario = '".$_SESSION['id']."' AND evento = '".$row1['id']."'");
+                  $cuantos = $asistencia->num_rows;
+
+
                   if($row2['id'] == $_SESSION['id']){
                     echo "
                   <div class=\"col-md-4 evs \">
@@ -103,6 +115,7 @@ session_start();
                               <div class=\"float-left\">
                                 <p class=\"text-danger\">".$row1['categoria']."</p>
                                 <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
+                                <a href='?seguir=seguir&id=".$row1['id']."'> Apuntarse </a>
                               </div>
                             </div>
                       </div>
