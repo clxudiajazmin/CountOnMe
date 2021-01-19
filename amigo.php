@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="css/norm.css">
 </head>
 <body>
-    <?php
+<?php
         if(isset($_GET['id'])){
             require ("config.php");
             $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '".$_GET['id']."'");
@@ -100,17 +100,25 @@
     ?>
     
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <!-- HEADER-->
-    <div id ="flipkart-navbar">
-      <div class="container">
+<!-- HEADER-->
+  <div id ="flipkart-navbar">
+    <div class="container">
         <div class="row row1">
-          <div class="row row2">
+        <ul class= "largenav pull-right">
+            <li class="upper-links"><a class="links" href="misAmigos.php">AMIGOS</a></li>
+            <li class="upper-links"><a class="links" href="misEventos.php">MIS EVENTOS</a></li>
+            <li class="upper-links"><a class="links" href="crearEvento.php">CREAR EVENTO</a></li>
+            <li class="upper-links"><a class="links" href="editarPerfil.php"><?php echo strtoupper($row['nombre']) ?></a></li>
+            <li class="upper-links"><a class="links" href="logout.php">SALIR</a></li>
+
+        </ul>
+        <div class="row row2">
             <div class="col-sm-2">
-              <h1 style="margin:0px;"><span class="largenav">Count on Me</span></h1>
-            </div>
+              <h1 style="margin:0px;"><span class="largenav"><a style="color:#FFFFFF; text-decoration: none;" href = "index.php">Count on Me</a></span></h1>
             </div>
         </div>
-      </div>
+        </div>
+    </div>
     </div>
 
     <br>
@@ -204,8 +212,7 @@
 
             </div><!--/col-9-->
       </div><!--/row-->
-
-      <section class="sections random-product ">
+  <section class="sections random-product ">
       <div class="container-fluid">
         <div class="container">
           <div class="row" id = "resultado">
@@ -304,11 +311,11 @@
         </div>
       </section>
        
-    <?php }else{
-            echo "<a href='login.php'> Debes loguearte </a> o <a href='registro.php'> Registrarte </a>";
-        }
-
-    ?>
+     <?php }else{
+    header("Location: login.php");
+    exit;
+  }
+  ?>
 
 </body>
 </html>

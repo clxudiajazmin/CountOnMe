@@ -25,7 +25,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
 <!-- HEADER-->
-    <div id ="flipkart-navbar">
+  <div id ="flipkart-navbar">
     <div class="container">
         <div class="row row1">
         <ul class= "largenav pull-right">
@@ -99,7 +99,7 @@
       </div>
     </section>
         <!--FOOTER-->
-    <section id = "footer" class = "fixed">
+    <section id = "footer" >
         <div class="container">
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">

@@ -16,6 +16,20 @@
   </head>
   <body>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+    <!-- HEADER-->
+    <div id ="flipkart-navbar">
+      <div class="container">
+        <div class="row row1">
+          <div class="row row2">
+            <div class="col-sm-2">
+              <h1 style="margin:0px;"><span class="largenav">Count on Me</span></h1>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+
     <center>
       <div class="container">
         <div class="row">
@@ -42,13 +56,16 @@
                   </div> <!-- input-group.// -->
                 </div> <!-- form-group// -->
                 <div class="form-group">
-                  <button type="submit" class="btn btn-primary btn-block" name="login"> Login  </button>
+                  <button type="submit" class="btn btn-primary botonlogin" name="login"> Login  </button>
                 </div> <!-- form-group// -->
+                 <p class="text-center"><a href="#" class="btn">Forgot password?</a></p>
+
+                <br>
                 <div class="form-group">
                   <h3>¿No tienes cuenta aún?</h3>
-                  <button type="submit" class="btn btn-primary btn-block"><a href='registro.php'>Registrate aquí</a></button>
+                  <button type="submit" class="btn btn-primary botonlogin"><a class ="colorblanco" href='registro.php'>Registrate aquí</a></button>
                 </div> <!-- form-group// -->
-                <p class="text-center"><a href="#" class="btn">Forgot password?</a></p>
+               
               </form>
             </article>
 

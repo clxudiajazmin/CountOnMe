@@ -16,7 +16,7 @@ session_start();
 </head>
 <body>
 
-    <?php
+<?php
         if(isset($_SESSION['usuario'])){
             require ("config.php");
             $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '".$_SESSION['id']."'");
@@ -100,7 +100,7 @@ session_start();
       </div>
     </div>
 
-    <!--CUERPO-->
+     <!--CUERPO-->
     <section class="sections random-product ">
       <div class="container-fluid">
         <div class="container">
