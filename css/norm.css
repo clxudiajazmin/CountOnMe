@@ -8,7 +8,14 @@
   height: 3%;
 }
 
+.colorblanco{
+    color :#fff;
+}
 
+.botonlogin{
+    width: 30%;
+    display: block;
+}
 .fotomaxwidth{
   max-width: 40%;
 }
@@ -50,6 +57,7 @@
 
 .card-title {
   margin-bottom: $card-spacer-y;
+  max-width: -moz-min-content;
 }
 
 .card-footer{

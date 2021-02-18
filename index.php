@@ -21,6 +21,7 @@ session_start();
             require ("config.php");
             $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '".$_SESSION['id']."'");
             $row = $solicitar->fetch_assoc();
+
             $apuntados = $connect->query("SELECT  * FROM asistencia WHERE usuario = '".$_SESSION['id']."'");
             $cuantos = $apuntados->num_rows;
     ?>
@@ -29,44 +30,35 @@ session_start();
         if(isset($_GET['apuntarse'])){
           require ("config.php");
 
-          if($_GET['aforo']-1 >= 0){
-            $apuntado = $connect->query("INSERT INTO asistencia (usuario, evento, estado) 
-            VALUES ('".$_SESSION['id']."','".$_GET['id']."', '1')");
-            if($cuantos >0){
+          if($_GET['aforo'] >= $_GET['asistentes'] + 1){
+            $apuntado = $connect->query("INSERT INTO asistencia (usuario, evento) 
+                                        VALUES ('".$_SESSION['id']."','".$_GET['id']."')");
+            $asistentes = $_GET['asistentes'] + 1;
+            $sumar = $connect->query("UPDATE eventos SET asistentes = '".$asistentes."' WHERE id = '".$_GET['id']."'");
+            if($sumar){
               header("Refresh: 0.1; url = index.php");
             }
+          }else{
+            echo "Aforo superado";
           }
           
         }
     ?>
 
     <?php
-        if(isset($_GET['reapuntarse'])){
-          require ("config.php");
-
-          if($_GET['aforo']-1 >= 0){
-            $apuntado = $connect->query("UPDATE asistencia SET estado = 1 WHERE usuario = '".$_SESSION['id']."' AND evento = '".$_GET['id']."'");
-            if($cuantos >0){
-              header("Refresh: 0.1; url = index.php");
-            }
-          }
-          
-        }
-    ?>
-
-<?php
         if(isset($_GET['desapuntarse'])){
           require ("config.php");
-
-          if($_GET['aforo']-1 >= 0){
-            $apuntado = $connect->query("UPDATE asistencia SET estado = 0 WHERE usuario = '".$_SESSION['id']."' AND evento = '".$_GET['id']."'");
-            if($cuantos >0){
+          if($_GET['asistentes'] -1 >= 0){
+            $apuntado = $connect->query("DELETE FROM asistencia WHERE usuario = '".$_SESSION['id']."' AND evento = '".$_GET['id']."'");
+            $asistentes = $_GET['asistentes'] - 1;
+            $restar = $connect->query("UPDATE eventos SET asistentes = '".$asistentes."' WHERE id = '".$_GET['id']."'");
+            if($restar){
               header("Refresh: 0.1; url = index.php");
             }
           }
-          
         }
     ?>
+
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
     <!-- HEADER-->
@@ -85,105 +77,78 @@ session_start();
             <div class="col-sm-2">
               <h1 style="margin:0px;"><span class="largenav">Count on Me</span></h1>
             </div>
-            <div class="flipkart-navbar-search smallsearch col-sm-8 col-xs-11">
-              <div class="row">
-                <input class="flipkart-navbar-input col-xs-11" type="text" id="buscador" placeholder="Busca tu evento" name = "textobusc">
-                <button class="flipkart-navbar-button col-xs-1" id = "boton" name="buscar">
-                    <svg width="15px" height="15px">
-                        <path d="M11.618 9.897l4.224 4.212c.092.09.1.23.02.312l-1.464 1.46c-.08.08-.222.072-.314-.02L9.868 11.66M6.486 10.9c-2.42 0-4.38-1.955-4.38-4.367 0-2.413 1.96-4.37 4.38-4.37s4.38 1.957 4.38 4.37c0 2.412-1.96 4.368-4.38 4.368m0-10.834C2.904.066 0 2.96 0 6.533 0 10.105 2.904 13 6.486 13s6.487-2.895 6.487-6.467c0-3.572-2.905-6.467-6.487-6.467 "></path>
-                    </svg>
-                </button>
-              </div>
-            </div>
           </div>
         </div>
       </div>
     </div>
 
-     <!--CUERPO-->
+    <!--CUERPO-->
     <section class="sections random-product ">
       <div class="container-fluid">
         <div class="container">
           <div class="row" id = "resultado">
+
             <?php
               $eventos = $connect->query("SELECT * FROM eventos ORDER BY usuario_org");
+
               while($row1 = $eventos->fetch_assoc()){
                   $usuario_org = $row1['usuario_org'];
                   $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '$usuario_org'");
                   $row2 = $solicitar->fetch_assoc();
-
-
-                  if($row2['id'] == $_SESSION['id']){
-                    echo "
-                  <div class=\"col-md-4 evs \">
-                    <div class=\"card bordeado\">
-                        <div class=\"card-body\">
-                          <h3 class=\"card-title\">
-                            <p class=\"text-dark\">".$row1['nombre']."</p>
-                            <p class=\"text-dark\">".$row2['usuario']."</p>
-                          </h3>
-                          <p class=\"text-dark\">".$row1['descripcion']." </p>
+                  $evento = $row1['id'];
+                  $aforo = $row1['aforo'] - $row1['asistentes'];
+                if($_SESSION['id'] != $usuario_org){
+                  if($cuantos > 0){
+                      $consulta = $connect->query("SELECT  * FROM asistencia WHERE evento = '$evento' AND usuario = '".$_SESSION['id']."'");
+                      $listaapuntados= $consulta->fetch_assoc();
+                      
+                      if($consulta && isset($listaapuntados['evento'])){
+                        echo "
+                        <div class=\"col-md-4 evs mh-100\">
+                          <div class=\"card bordeado\">
+                              <div class=\"card-body\">
+                                <h3 class=\"card-title\">
+                                  <p class=\"text-dark\">".$row1['nombre']."</p>
+                                  <a href='amigo.php?id=".$row2['id']."' class=\"text-dark\">".$row2['usuario']."</a>
+                                </h3>
+                                <p class=\"text-dark\">".$row1['descripcion']." </p>
+                              </div>
+                              <div class=\"card-footer\">
+                                <div class=\"badge badge-danger float-right\">Aforo: ".$aforo."</div>
+                                  <div class=\"float-left\">
+                                    <p class=\"text-danger\">".$row1['categoria']."</p>
+                                    <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
+                                  </div>
+                                  <a href='?desapuntarse=desapuntarse&id=".$row1['id']."&aforo=".$row1['aforo']."&asistentes=".$row1['asistentes']."'> Desapuntarse </a>
+                                </div>
+                          </div>
                         </div>
-                        <div class=\"card-footer\">
-                          <div class=\"badge badge-danger float-right\">Aforo: ".$row1['aforo']."</div>
-                            <div class=\"float-left\">
-                              <p class=\"text-danger\">".$row1['categoria']."</p>
-                              <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
+                        ";
+                        }else{
+                          echo "
+                          <div class=\"col-md-4 evs \">
+                            <div class=\"card bordeado\">
+                                <div class=\"card-body\">
+                                  <h3 class=\"card-title\">
+                                    <p class=\"text-dark\">".$row1['nombre']."</p>
+                                    <a href='amigo.php?id=".$row2['id']."' class=\"text-dark\">".$row2['usuario']."</a>
+                                  </h3>
+                                  <p class=\"text-dark\">".$row1['descripcion']." </p>
+                                </div>
+                                <div class=\"card-footer\">
+                                  <div class=\"badge badge-danger float-right\">Aforo: ".$aforo."</div>
+                                    <div class=\"float-left\">
+                                      <p class=\"text-danger\">".$row1['categoria']."</p>
+                                      <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
+                                    </div>
+                                    <a href='?apuntarse=apuntarse&id=".$row1['id']."&aforo=".$row1['aforo']."&asistentes=".$row1['asistentes']."'> Apuntarse </a>
+                                  </div>
                             </div>
                           </div>
-                    </div>
-                  </div>
-                  ";
-                  }else{
-                    $asistencia = $apuntados->fetch_assoc();
-                    if($cuantos > 0){
-                      if($asistencia['estado'] == 1){
-                        echo "
-                    <div class=\"col-md-4 evs \">
-                      <div class=\"card bordeado\">
-                          <div class=\"card-body\">
-                            <h3 class=\"card-title\">
-                              <p class=\"text-dark\">".$row1['nombre']."</p>
-                              <a href='amigo.php?id=".$row2['id']."' class=\"text-dark\">".$row2['usuario']."</a>
-                            </h3>
-                            <p class=\"text-dark\">".$row1['descripcion']." </p>
-                          </div>
-                          <div class=\"card-footer\">
-                            <div class=\"badge badge-danger float-right\">Aforo: ".$row1['aforo']."</div>
-                              <div class=\"float-left\">
-                                <p class=\"text-danger\">".$row1['categoria']."</p>
-                                <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
-                                <a href='?desapuntarse=desapuntarse&id=".$row1['id']."&aforo=".$row1['aforo']."'> Desapuntarse </a>
-                              </div>
-                            </div>
-                      </div>
-                    </div>
-                    ";
-                      }else{
-                        echo "
-                    <div class=\"col-md-4 evs \">
-                      <div class=\"card bordeado\">
-                          <div class=\"card-body\">
-                            <h3 class=\"card-title\">
-                              <p class=\"text-dark\">".$row1['nombre']."</p>
-                              <a href='amigo.php?id=".$row2['id']."' class=\"text-dark\">".$row2['usuario']."</a>
-                            </h3>
-                            <p class=\"text-dark\">".$row1['descripcion']." </p>
-                          </div>
-                          <div class=\"card-footer\">
-                            <div class=\"badge badge-danger float-right\">Aforo: ".$row1['aforo']."</div>
-                              <div class=\"float-left\">
-                                <p class=\"text-danger\">".$row1['categoria']."</p>
-                                <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
-                                <a href='?reapuntarse=reapuntarse&id=".$row1['id']."&aforo=".$row1['aforo']."'> Apuntarse </a>
-                              </div>
-                            </div>
-                      </div>
-                    </div>
-                    ";
+                          ";
                       }
-                    }else{
-                      echo "
+            }else{
+              echo "
                     <div class=\"col-md-4 evs \">
                       <div class=\"card bordeado\">
                           <div class=\"card-body\">
@@ -194,20 +159,19 @@ session_start();
                             <p class=\"text-dark\">".$row1['descripcion']." </p>
                           </div>
                           <div class=\"card-footer\">
-                            <div class=\"badge badge-danger float-right\">Aforo: ".$row1['aforo']."</div>
+                            <div class=\"badge badge-danger float-right\">Aforo: ".$aforo."</div>
                               <div class=\"float-left\">
                                 <p class=\"text-danger\">".$row1['categoria']."</p>
                                 <p class=\"text-danger\"> En ".$row1['ubicacion']." el ".$row1['fecha']."</p>
-                                <a href='?apuntarse=apuntarse&id=".$row1['id']."&aforo=".$row1['aforo']."'> Apuntarse </a>
                               </div>
+                              <a href='?apuntarse=apuntarse&id=".$row1['id']."&aforo=".$row1['aforo']."&asistentes=".$row1['asistentes']."'> Apuntarse </a>
                             </div>
                       </div>
                     </div>
                     ";
-                    }
-                    
-                  }
-              }
+            }
+          }
+        }
             ?>
           </div>
         </div>
@@ -257,17 +221,19 @@ session_start();
 */
 
 ?>
-<!--FOOTER-->
-  <section id = "footer" class= "fixed">
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
-          <p><i>Count on Me</i> es un proyecto desarrollado por Sofía Martínez Parada y Claudia Jazmín Soria Saavedra para la asignatura de Desarrollo Web y de Apps</p>
-          <p class="h6">© All rights reserved.</p>
+    <!--FOOTER-->
+    <section id = "footer" >
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
+              <p><i>Count on Me</i> es un proyecto desarrollado por Sofía Martínez Parada y Claudia Jazmín Soria Saavedra para la asignatura de Desarrollo Web y de Apps</p>
+              <p class="h6">© All rights reserved.</p>
+            </div>
+            <hr>
+          </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
 </body>
 </html>
+

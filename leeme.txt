@@ -1,1 +1,10 @@
+Para el funcionamiento de la aplicación localmente se tiene que crear una base de datos en phpmyAdmin:
+
 Nombre de base de datos = count_on_me
+
+Se debe contar con la última versión de PHP 8.0.1
+
+Los archivos php son los que generan la página.
+bbdd.sql es el archivo con el código de creación de la base de datos
+Carpeta css : contiene las hojas de estilos .css
+Carpeta fotos_perfil: contiene todas las fotos de perfil de los usuarios

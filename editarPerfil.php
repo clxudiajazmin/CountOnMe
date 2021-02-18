@@ -85,10 +85,10 @@
                             <div class="col-xs-6">
                                 <label for="text"><h4>Sexo</h4></label>
                                     <select class="form-control" name = "sexo">
-                                        <option value="Masculino">Masculino</option>
-                                        <option value="Femenino">Femenino</option>
-                                        <option value="No binario">No binario</option>
-                                        <option value="Prefiero no identificar">Prefiero no identificar</option>
+                                        <option value="Masculino" <?php if ($row['sexo'] == 'Masculino') echo 'selected="selected"';?>>Masculino</option>
+                                        <option value="Femenino" <?php if ($row['sexo'] == 'Femenino') echo 'selected="selected"';?>>Femenino</option>
+                                        <option value="No binario" <?php if ($row['sexo'] == 'No binario') echo 'selected="selected"';?>>No binario</option>
+                                        <option value="Prefiero no identificar" <?php if ($row['sexo'] == 'Prefiero no identificar') echo 'selected="selected"';?>>Prefiero no identificar</option>
                                     </select>
                             </div>
                         </div>

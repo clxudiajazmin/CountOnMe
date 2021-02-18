@@ -21,7 +21,25 @@
             require ("config.php");
             $solicitar = $connect->query("SELECT  * FROM usuarios WHERE id = '".$_SESSION['id']."'");
             $row = $solicitar->fetch_assoc();
+
+            $apuntados = $connect->query("SELECT  * FROM asistencia WHERE usuario = '".$_SESSION['id']."'");
+            $cuantos = $apuntados->num_rows;
     ?>
+
+    <?php
+        if(isset($_GET['desapuntarse'])){
+          require ("config.php");
+          if($_GET['asistentes'] -1 >= 0){
+            $apuntado = $connect->query("DELETE FROM asistencia WHERE usuario = '".$_SESSION['id']."' AND evento = '".$_GET['id']."'");
+            $asistentes = $_GET['asistentes'] - 1;
+            $restar = $connect->query("UPDATE eventos SET asistentes = '".$asistentes."' WHERE id = '".$_GET['id']."'");
+            if($restar){
+              header("Refresh: 0.1; url = misEventos.php");
+            }
+          }
+        }
+    ?>
+
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
 <!-- HEADER-->
@@ -61,6 +79,7 @@
           <div class="row" id = "resultado">
             <?php
               $eventos = $connect->query("SELECT * FROM eventos WHERE usuario_org = '".$_SESSION['id']."'");
+              $eventosap = $connect->query("SELECT * FROM eventos");
               while($row1 = $eventos->fetch_assoc()){
                     echo "
                   <div class=\"col-md-4 evs \">
@@ -83,6 +102,37 @@
                   </div>
                   ";
               }
+              while($row2 = $eventosap->fetch_assoc()){
+                  $evento = $row2['id'];
+                  if($cuantos > 0){
+                    $consulta = $connect->query("SELECT  * FROM asistencia WHERE evento = '$evento' AND usuario = '".$_SESSION['id']."'");
+                    $listaapuntados= $consulta->fetch_assoc();
+                    if($consulta && isset($listaapuntados['evento'])){
+                      echo "
+                        <div class=\"col-md-4 evs \">
+                          <div class=\"card bordeado\">
+                              <div class=\"card-body\">
+                                <h3 class=\"card-title\">
+                                  <p class=\"text-dark\">".$row2['nombre']."</p>
+                                </h3>
+                                <p class=\"text-dark\">".$row2['descripcion']." </p>
+                              </div>
+                              <div class=\"card-footer\">
+                                <div class=\"badge badge-danger float-right\">Aforo: ".$row2['aforo']."</div>
+                                  <div class=\"float-left\">
+                                    <p class=\"text-danger\">".$row2['categoria']."</p>
+                                    <p class=\"text-danger\"> En ".$row2['ubicacion']." el ".$row2['fecha']."</p>
+                                  </div>
+                                  <a href='?desapuntarse=desapuntarse&id=".$row2['id']."&aforo=".$row2['aforo']."&asistentes=".$row2['asistentes']."'> Desapuntarse </a>
+                                </div>
+                          </div>
+                        </div>
+                        ";
+                    }
+                    
+                  }
+              }
+              
             ?>
           </div>
           <div class="form-group">
@@ -105,7 +155,8 @@
             <hr>
           </div>
         </div>
-      </section>
+    </section>
+
     <script src="js/jquery-1.11.1.min.js"></script>
     <script type="text/javascript" src = "js/main.js"></script>
     <?php }else{

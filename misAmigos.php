@@ -99,7 +99,7 @@
       </div>
     </section>
         <!--FOOTER-->
-    <section id = "footer" >
+    <section id = "footer">
         <div class="container">
           <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
